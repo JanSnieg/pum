@@ -16,7 +16,7 @@ import android.widget.Toast;
 
 public class QuizActivity extends AppCompatActivity
 {
-    public static final String ANSWER = "pl.wroc.uni.ift.android.quizactivity.ANSWER";
+    public static final String ANSWER = "ANSWER";
 
     private Button mTrueButton;
     private Button mFalseButton;
@@ -40,11 +40,13 @@ public class QuizActivity extends AppCompatActivity
     private int mHintNumber = 3;
     private static final String TAG = "QuizActivity";
     private Button mCheatButton;
+    private static int CHEAT_REQUEST = 0;
 
+    @Override
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
-        Log.i(TAG, "onCreate() called");
+        Log.d(TAG, "onCreate() called");
         setTitle(R.string.app_name);
         // inflating view objects
         setContentView(R.layout.activity_quiz);
@@ -132,9 +134,8 @@ public class QuizActivity extends AppCompatActivity
             @Override
             public void onClick(View view)
             {
-                boolean currentAnswer;
-                currentAnswer = mQuestionsBank[mCurrentIndex].isAnswerTrue();
-                showDialog(QuizActivity.this, "Czy na pewno chcesz podejrzeć odpowiedź?", String.valueOf(currentAnswer));
+                String mHintString = "Zostało Ci: " + String.valueOf(mHintNumber-1) + " podpowiedzi.";
+                showDialog(QuizActivity.this, "Czy na pewno chcesz podejrzeć odpowiedź?", String.valueOf(mHintString));
             }
         });
 
@@ -152,6 +153,7 @@ public class QuizActivity extends AppCompatActivity
     {
         mTrueButton.setEnabled(false);
         mFalseButton.setEnabled(false);
+        mCheatButton.setEnabled(false);
     }
 
     private void blockNavigationButtons()
@@ -227,6 +229,17 @@ public class QuizActivity extends AppCompatActivity
 
     //List 3 methods
 
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == CHEAT_REQUEST)
+        {
+            if (resultCode == RESULT_OK)
+            {
+                checkCheatButton();
+                lockCheatButton();
+            }
+        }
+    }
+
     private void checkCheatButton()
     {
         if (mHintNumber == 0 || mQuestionsBank[mCurrentIndex].mIsCheated)
@@ -238,30 +251,22 @@ public class QuizActivity extends AppCompatActivity
         mQuestionsBank[mCurrentIndex].mIsCheated = true;
     }
 
-    @Override
-    protected void onResume()
-    {
-        super.onResume();
-        checkCheatButton();
-        lockCheatButton();
-    }
-
     public void showCheat()
     {
-        mQuestionsBank[mCurrentIndex].mIsCheated = true;
+        mQuestionsBank[mCurrentIndex].mIsCheated = true;    //Setting ability to cheat off
         Intent intent = new Intent(QuizActivity.this, CheatActivity.class);
         boolean answer = mQuestionsBank[mCurrentIndex].isAnswerTrue();
         intent.putExtra(ANSWER, answer);
+        startActivityForResult(intent,CHEAT_REQUEST);
     }
-    public void showDialog(Activity activity, String title, CharSequence message)
+    public void showDialog(Activity activity, String title, final CharSequence message)
     {
-        AlertDialog.Builder builder = new AlertDialog.Builder(activity);
+        final AlertDialog.Builder builder = new AlertDialog.Builder(activity);
 
         builder.setTitle(title);
         builder.setMessage(message);
         builder.setPositiveButton("Show", new DialogInterface.OnClickListener()
         {
-            @Override
             public void onClick(DialogInterface dialog, int which)
             {
                 showCheat();

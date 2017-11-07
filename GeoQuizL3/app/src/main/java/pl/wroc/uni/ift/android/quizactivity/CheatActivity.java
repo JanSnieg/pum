@@ -18,17 +18,21 @@ public class CheatActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cheat);
 
-        getAnwser();
+        getAnswer();
     }
 
-    private void getAnwser()
+    private void getAnswer()
     {
-        boolean mAnswer = getIntent().getBooleanExtra(QuizActivity.ANSWER, false);
+        final boolean mAnswer = getIntent().getBooleanExtra(QuizActivity.ANSWER, false);
         TextView cheatTextView = (TextView) findViewById(R.id.text_view_answer);
 
         if (mAnswer)
             cheatTextView.setText("True");
         else
             cheatTextView.setText("False");
+
+        Intent returnIntent = new Intent();
+        returnIntent.putExtra("result", 1);
+        setResult(Activity.RESULT_OK, returnIntent);
     }
 }

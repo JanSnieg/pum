@@ -116,7 +116,7 @@ This means, in which direction it's contents should align.
     </LinearLayout>
 
     <Button
-        android:id="@+id/button_cheat"
+        android:id="@+id/cheatButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/cheat_button_label" />
