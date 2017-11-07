@@ -58,6 +58,7 @@ public class QuizActivity extends AppCompatActivity
         {
             mCurrentIndex = savedInstanceState.getInt("QUESTION_INDEX");
             mAnsweredQuestions = savedInstanceState.getInt("ANSWERED_QUESTIONS");
+            mQuestionsBank[mCurrentIndex].mIsAnswered = savedInstanceState.getBoolean("IS_ANSWERED");
             Log.i(TAG, String.format("onCreate(): Restoring saved index %d", mCurrentIndex));
 
             if (mQuestionsBank == null) // check if mQuestion bank was correctly imported
@@ -135,7 +136,7 @@ public class QuizActivity extends AppCompatActivity
             public void onClick(View view)
             {
                 String mHintString = "Zostało Ci: " + String.valueOf(mHintNumber-1) + " podpowiedzi.";
-                showDialog(QuizActivity.this, "Czy na pewno chcesz podejrzeć odpowiedź?", String.valueOf(mHintString));
+                showDialog(QuizActivity.this, "Czy na pewno chcesz podejrzeć odpowiedź?", mHintString);
             }
         });
 
@@ -222,6 +223,7 @@ public class QuizActivity extends AppCompatActivity
                 mAnsweredQuestions++;
             }
         checkCheatButton();
+        lockCheatButton();
         Toast message = Toast.makeText(this, toastMessageId, Toast.LENGTH_SHORT);
         message.setGravity(Gravity.TOP | Gravity.CENTER_HORIZONTAL, 0, 150);
         message.show();
@@ -278,13 +280,14 @@ public class QuizActivity extends AppCompatActivity
     }
 
     @Override
-    public void onSaveInstanceState(Bundle outState)
+    public void onSaveInstanceState(Bundle savedInstanceState)
     {
-        outState.putInt("QUESTION_INDEX", this.mCurrentIndex);
-        outState.putInt("ANSWERED_QUESTIONS", this.mAnsweredQuestions);
-        outState.putInt("PLAYER_SCORE", this.mPlayerScore);
+        super.onSaveInstanceState(savedInstanceState);
 
-        super.onSaveInstanceState(outState);
+        savedInstanceState.putInt("QUESTION_INDEX", this.mCurrentIndex);
+        savedInstanceState.putInt("ANSWERED_QUESTIONS", this.mAnsweredQuestions);
+        savedInstanceState.putInt("PLAYER_SCORE", this.mPlayerScore);
+        savedInstanceState.putBoolean("IS_ANSWERED", mQuestionsBank[mCurrentIndex].mIsAnswered);
     }
 
 }

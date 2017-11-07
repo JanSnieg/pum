@@ -1,18 +1,19 @@
 package pl.wroc.uni.ift.android.quizactivity;
 
 /**
- * Created by jpola on 26.07.17.
+ * Created by jansnieg on 24/10/2017.
  */
 
-public class Question
+
+class Question
 {
 
     private int mTextResId;
     private boolean mAnswerTrue;
-    public boolean mIsAnswered;
-    public boolean mIsCheated;
+    boolean mIsAnswered;
+    boolean mIsCheated;
 
-    public Question(int textResId, boolean answerTrue)
+    Question(int textResId, boolean answerTrue)
     {
         mTextResId = textResId;
         mAnswerTrue = answerTrue;
@@ -20,24 +21,14 @@ public class Question
         mIsCheated = false;
     }
 
-    public int getTextResId()
+    int getTextResId()
     {
         return mTextResId;
     }
 
-    public void setTextResId(int textResId)
-    {
-        mTextResId = textResId;
-    }
-
-    public boolean isAnswerTrue()
+    boolean isAnswerTrue()
     {
         return mAnswerTrue;
-    }
-
-    public void setAnswerTrue(boolean answerTrue)
-    {
-        mAnswerTrue = answerTrue;
     }
 
 }
