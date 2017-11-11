@@ -3,6 +3,8 @@ package pl.wroc.uni.ift.android.quizactivity;
 import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.os.Build;
+import android.os.Build.VERSION;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -13,6 +15,8 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import static android.os.Build.VERSION.*;
 
 public class QuizActivity extends AppCompatActivity
 {
@@ -48,17 +52,25 @@ public class QuizActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         Log.d(TAG, "onCreate() called");
         setTitle(R.string.app_name);
+
+
+        // Showing API level
+        Toast apiLvl = Toast.makeText(this, "Api Level: " + SDK_INT + "\n[ " + RELEASE + " ]", Toast.LENGTH_LONG);
+        apiLvl.setGravity(Gravity.TOP | Gravity.CENTER_HORIZONTAL, 0, 150);
+        apiLvl.show();
         // inflating view objects
         setContentView(R.layout.activity_quiz);
 
 
-        //Added This statement to check if there isn't any saved states
-        // if there isn't this saves it.
         if (savedInstanceState != null)
         {
+            // Getting variables from savedInstanceState
             mCurrentIndex = savedInstanceState.getInt("QUESTION_INDEX");
             mAnsweredQuestions = savedInstanceState.getInt("ANSWERED_QUESTIONS");
             mQuestionsBank[mCurrentIndex].mIsAnswered = savedInstanceState.getBoolean("IS_ANSWERED");
+            mHintNumber = savedInstanceState.getInt("HINT_NUMBER");
+            mQuestionsBank[mCurrentIndex].mIsCheated = savedInstanceState.getBoolean("IS_CHEATED");
+
             Log.i(TAG, String.format("onCreate(): Restoring saved index %d", mCurrentIndex));
 
             if (mQuestionsBank == null) // check if mQuestion bank was correctly imported
@@ -77,6 +89,7 @@ public class QuizActivity extends AppCompatActivity
                     public void onClick(View v)
                     {
                         checkAnswer(true);
+                        blockButtons(); //Added blocking buttons here
                     }
                 }
         );
@@ -88,6 +101,7 @@ public class QuizActivity extends AppCompatActivity
             public void onClick(View v)
             {
                 checkAnswer(false);
+                blockButtons(); //Added blocking buttons here also
             }
         });
 
@@ -135,7 +149,7 @@ public class QuizActivity extends AppCompatActivity
             @Override
             public void onClick(View view)
             {
-                String mHintString = "Zostało Ci: " + String.valueOf(mHintNumber-1) + " podpowiedzi.";
+                String mHintString = "Zostało Ci: " + String.valueOf(mHintNumber) + " podpowiedzi.";
                 showDialog(QuizActivity.this, "Czy na pewno chcesz podejrzeć odpowiedź?", mHintString);
             }
         });
@@ -245,7 +259,7 @@ public class QuizActivity extends AppCompatActivity
     private void checkCheatButton()
     {
         if (mHintNumber == 0 || mQuestionsBank[mCurrentIndex].mIsCheated)
-            mCheatButton.setEnabled(false);
+            mCheatButton.setEnabled(false); //Here is setting Enabled off
     }
 
     private void lockCheatButton()
@@ -284,10 +298,13 @@ public class QuizActivity extends AppCompatActivity
     {
         super.onSaveInstanceState(savedInstanceState);
 
+        //Saving variables to savedInstaneState
         savedInstanceState.putInt("QUESTION_INDEX", this.mCurrentIndex);
         savedInstanceState.putInt("ANSWERED_QUESTIONS", this.mAnsweredQuestions);
         savedInstanceState.putInt("PLAYER_SCORE", this.mPlayerScore);
         savedInstanceState.putBoolean("IS_ANSWERED", mQuestionsBank[mCurrentIndex].mIsAnswered);
+        savedInstanceState.putInt("HINT_NUMBER", this.mHintNumber);
+        savedInstanceState.putBoolean("IS_CHEATED", mQuestionsBank[mCurrentIndex].mIsCheated);
     }
 
 }

@@ -9,25 +9,12 @@
     >
 
     <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        tools:text="Designing text"
-        android:gravity="center"
-        android:padding="24dp"
-        android:text="@string/warning_text_view_label"/>
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
         android:id="@+id/text_view_answer"
-        android:padding="24dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:gravity="center"
+        android:padding="50dp"
+        android:textSize="30sp"
         tools:text="Tu bedzie odpowiedz"/>
 
-    <Button
-        android:id="@+id/cheatButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:text="@string/button_show_label"/>
 </LinearLayout>
