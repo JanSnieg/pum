@@ -6,9 +6,6 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.TextView;
 
-/**
- * Created by jansnieg on 24/10/2017.
- */
 
 public class CheatActivity extends AppCompatActivity
 {

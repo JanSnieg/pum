@@ -1,10 +1,5 @@
 package pl.wroc.uni.ift.android.quizactivity;
 
-/**
- * Created by jansnieg on 24/10/2017.
- */
-
-
 class Question
 {
 

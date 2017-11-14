@@ -3,8 +3,6 @@ package pl.wroc.uni.ift.android.quizactivity;
 import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.os.Build;
-import android.os.Build.VERSION;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -16,7 +14,8 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import static android.os.Build.VERSION.*;
+import static android.os.Build.VERSION.RELEASE;
+import static android.os.Build.VERSION.SDK_INT;
 
 public class QuizActivity extends AppCompatActivity
 {
@@ -53,7 +52,7 @@ public class QuizActivity extends AppCompatActivity
         Log.d(TAG, "onCreate() called");
         setTitle(R.string.app_name);
 
-
+        //List 4 Toast
         // Showing API level
         Toast apiLvl = Toast.makeText(this, "Api Level: " + SDK_INT + "\n[ " + RELEASE + " ]", Toast.LENGTH_LONG);
         apiLvl.setGravity(Gravity.TOP | Gravity.CENTER_HORIZONTAL, 0, 150);
@@ -68,6 +67,7 @@ public class QuizActivity extends AppCompatActivity
             mCurrentIndex = savedInstanceState.getInt("QUESTION_INDEX");
             mAnsweredQuestions = savedInstanceState.getInt("ANSWERED_QUESTIONS");
             mQuestionsBank[mCurrentIndex].mIsAnswered = savedInstanceState.getBoolean("IS_ANSWERED");
+            //List 4 new saved variables
             mHintNumber = savedInstanceState.getInt("HINT_NUMBER");
             mQuestionsBank[mCurrentIndex].mIsCheated = savedInstanceState.getBoolean("IS_CHEATED");
 
@@ -89,7 +89,7 @@ public class QuizActivity extends AppCompatActivity
                     public void onClick(View v)
                     {
                         checkAnswer(true);
-                        blockButtons(); //Added blocking buttons here
+                        blockButtons(); //Added blocking buttons here (List2)
                     }
                 }
         );
@@ -101,7 +101,7 @@ public class QuizActivity extends AppCompatActivity
             public void onClick(View v)
             {
                 checkAnswer(false);
-                blockButtons(); //Added blocking buttons here also
+                blockButtons(); //Added blocking buttons here also (List2)
             }
         });
 
@@ -142,7 +142,7 @@ public class QuizActivity extends AppCompatActivity
             }
         });
 
-        //Cheat button init
+        //Cheat button init (List 3)
         mCheatButton = (Button) findViewById(R.id.cheatButton);
         mCheatButton.setOnClickListener(new View.OnClickListener()
         {
@@ -303,6 +303,7 @@ public class QuizActivity extends AppCompatActivity
         savedInstanceState.putInt("ANSWERED_QUESTIONS", this.mAnsweredQuestions);
         savedInstanceState.putInt("PLAYER_SCORE", this.mPlayerScore);
         savedInstanceState.putBoolean("IS_ANSWERED", mQuestionsBank[mCurrentIndex].mIsAnswered);
+        //List 4 new saved variables
         savedInstanceState.putInt("HINT_NUMBER", this.mHintNumber);
         savedInstanceState.putBoolean("IS_CHEATED", mQuestionsBank[mCurrentIndex].mIsCheated);
     }

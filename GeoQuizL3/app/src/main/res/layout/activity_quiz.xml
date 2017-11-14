@@ -102,7 +102,7 @@ This means, in which direction it's contents should align.
         android:text="@string/previous_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:drawablePadding="12dp"
+        android:drawablePadding="20dp"
         android:src="@drawable/arrow_left"/>
 
 
@@ -112,7 +112,7 @@ This means, in which direction it's contents should align.
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:src="@drawable/arrow_right"
-        android:drawablePadding="12dp"/>
+        android:drawablePadding="20dp"/>
     </LinearLayout>
 
     <Button
