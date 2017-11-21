@@ -12,18 +12,12 @@ import android.support.v7.widget.RecyclerView;
 public class QuestionListActivity extends AppCompatActivity
 {
 
-    @NonNull
-    public static Intent newIntent(Context context)
-    {
-        return new Intent(context, QuestionListActivity.class);
-    }
-
     @Override
     public void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list);
-        RecyclerView mRecyclerView = (RecyclerView) findViewById(R.id.questions_list);
+        RecyclerView mRecyclerView = findViewById(R.id.questions_list);
 
         mRecyclerView.setHasFixedSize(true);
 

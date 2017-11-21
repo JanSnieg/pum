@@ -156,7 +156,7 @@ public class QuizActivity extends AppCompatActivity
             public void onClick(View view)
             {
                 updateQuestion();
-                Intent intent = QuestionListActivity.newIntent(QuizActivity.this);
+                Intent intent = new Intent(QuizActivity.this, QuestionListActivity.class);
                 startActivity(intent);
             }
         });
@@ -252,7 +252,7 @@ public class QuizActivity extends AppCompatActivity
 
     //List 3 methods
 
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == CHEAT_REQUEST)
         {
             if (resultCode == RESULT_OK)

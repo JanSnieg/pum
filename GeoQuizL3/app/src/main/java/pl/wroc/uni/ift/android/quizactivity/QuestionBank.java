@@ -17,6 +17,14 @@ class QuestionBank
         mQuestionBank.add(new Question(R.string.question_stolica_dolnego_slaska, false));
         mQuestionBank.add(new Question(R.string.question_sniezka, true));
         mQuestionBank.add(new Question(R.string.question_wisla, true));
+        mQuestionBank.add(new Question(R.string.question_stolica_polski, true));
+        mQuestionBank.add(new Question(R.string.question_stolica_dolnego_slaska, false));
+        mQuestionBank.add(new Question(R.string.question_sniezka, true));
+        mQuestionBank.add(new Question(R.string.question_wisla, true));
+        mQuestionBank.add(new Question(R.string.question_stolica_polski, true));
+        mQuestionBank.add(new Question(R.string.question_stolica_dolnego_slaska, false));
+        mQuestionBank.add(new Question(R.string.question_sniezka, true));
+        mQuestionBank.add(new Question(R.string.question_wisla, true));
     }
 
     static QuestionBank getInstance()
