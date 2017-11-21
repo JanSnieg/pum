@@ -3,6 +3,7 @@ package pl.wroc.uni.ift.android.quizactivity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -11,6 +12,7 @@ import android.support.v7.widget.RecyclerView;
 public class QuestionListActivity extends AppCompatActivity
 {
 
+    @NonNull
     public static Intent newIntent(Context context)
     {
         return new Intent(context, QuestionListActivity.class);

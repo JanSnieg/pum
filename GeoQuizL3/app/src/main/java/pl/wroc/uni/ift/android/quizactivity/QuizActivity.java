@@ -30,7 +30,6 @@ public class QuizActivity extends AppCompatActivity
     //List 5
     //Getting QuestionBank
     private QuestionBank mQuestionsBank = QuestionBank.getInstance();
-    private Button mQuestionButton;
 
     private int mCurrentIndex = 0;
     private int mPlayerScore = 0;
@@ -74,7 +73,7 @@ public class QuizActivity extends AppCompatActivity
                 Log.i(TAG, "Question bank array was correctly returned from Bundle");
         }
 
-        mQuestionTextView = (TextView) findViewById(R.id.question_text_view);
+        mQuestionTextView = findViewById(R.id.question_text_view);
 
         mTrueButton = (Button) findViewById(R.id.true_button);
         mTrueButton.setOnClickListener(
@@ -145,12 +144,12 @@ public class QuizActivity extends AppCompatActivity
             public void onClick(View view)
             {
                 String mHintString = "Zostało Ci: " + String.valueOf(mHintNumber) + " podpowiedzi.";
-                showDialog(QuizActivity.this, "Czy na pewno chcesz podejrzeć odpowiedź?", mHintString);
+                showDialog(QuizActivity.this, mHintString);
             }
         });
 
         //Init of QuestionViewer button
-        mQuestionButton = (Button) findViewById(R.id.question_list_button);
+        Button mQuestionButton = (Button) findViewById(R.id.question_list_button);
         mQuestionButton.setOnClickListener(new View.OnClickListener()
         {
             @Override
@@ -283,11 +282,11 @@ public class QuizActivity extends AppCompatActivity
         intent.putExtra(ANSWER, answer);
         startActivityForResult(intent,CHEAT_REQUEST);
     }
-    public void showDialog(Activity activity, String title, final CharSequence message)
+    public void showDialog(Activity activity, final CharSequence message)
     {
         final AlertDialog.Builder builder = new AlertDialog.Builder(activity);
 
-        builder.setTitle(title);
+        builder.setTitle("Czy na pewno chcesz podejrzeć odpowiedź?");
         builder.setMessage(message);
         builder.setPositiveButton("Show", new DialogInterface.OnClickListener()
         {
